@@ -1,8 +1,5 @@
 import './App.css';
 import React, { useState, useEffect } from 'react'
-import { conversionsJanFebMarch } from './data/retail-converstions_jan-march_2020';
-import axios from 'axios';
-
 
 
 function App(props) {
@@ -15,19 +12,26 @@ function App(props) {
   
   useEffect(() => {
     const loadPost = async () => {
-      
+      //console.log(conversionsJanFebMarch)
       // Till the data is fetch using API 
       // the Loading page will show.
       setLoading(true);
-      const arrayUniqueByKey = [...new Map(conversionsJanFebMarch.map(item =>
-        [item[key], item])).values()];
 
         // Await make wait until that 
         // promise settles and return its reult
-        const response = await axios.get(conversionsJanFebMarch);
+        async function initProducts() {
+          await fetch(`http://127.0.0.1:3000/conversions`)
+              .then(response => response.json())
+              .then(response => {
+                  setConversions(response.result);
+                  console.log(response.result);
+              })
+              .catch(err => console.error(err));
+      }
+
 
         // After fetching data stored it in posts state.
-        setConversions(response.data);
+        //setConversions(response.data);
 
         // Closed the loading page
         setLoading(false);
@@ -40,10 +44,8 @@ function App(props) {
     <div className="App">
         {loading ? (
           <h4>Loading...</h4>) :
-          (conversions.map((item) =>
-              // Presently we only fetch 
-              // title from the API 
-              <h4>{item.Name}</h4>)
+          (
+          <div>loaded</div>
           )
       }
     </div>

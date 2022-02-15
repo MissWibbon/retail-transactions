@@ -7,6 +7,7 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^0.19.0",
+    "json-server": "^0.17.0",
     "react": "^17.0.2",
     "react-csv": "^2.2.2",
     "react-dom": "^17.0.2",
@@ -15,6 +16,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "data": "json-server db.json",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
