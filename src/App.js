@@ -64,10 +64,8 @@ function App(props) {
               const arr = conversions.filter(function (transact) {
                 return transact.Name === name
               })
+              console.log(arr)
               for (let i = 0; i < arr.length; i++) {
-                let prices = []
-                //prices.push(conversions[i]["Total Price"])
-                //console.log(prices)
                 if (!unique[conversions[i].Name]) {
                   distinct.push({ name: conversions[i].Name, id: conversions[i].row_id });
                   unique[conversions[i].Name] = 1;
@@ -78,16 +76,34 @@ function App(props) {
               console.log(history)
               history.forEach(element => {
                 let points = 0;
+                let janPoints = 0;
+                let febPoints = 0;
+                let marchPoints = 0;
                 let prices = []
                 for (let i = 0; i < element.length; i++) {
+                  const month = element[i].Date.charAt(0)
                   let split = element[i]["Total Price"].split(" $ ").pop()
                   let price = Number(split, 10)
                   if (price > 50 && price < 100) {
                     let dif = 100 - price
                     points = points + dif
+                    if(month === 1){
+                      janPoints = dif + janPoints
+                    } else if (month === "2" ) {
+                      febPoints = dif + febPoints
+                    } else if (month === "3") {
+                      marchPoints = dif + marchPoints
+                    }
                   } else if (price > 100) {
                     let dif = price - 100
                     points = (dif * 2) + dif
+                    if(month === "1"){
+                      janPoints = (dif * 2) + janPoints
+                    } else if (month === "2" ) {
+                      febPoints = (dif * 2) + febPoints
+                    } else if (month === "3") {
+                      marchPoints = (dif * 2) + marchPoints
+                    }
                   }
                   prices.push(price)
                 }
@@ -95,6 +111,9 @@ function App(props) {
                   customer: {
                     "Name": element[0].Name,
                     "Purchases": element.length,
+                    "January Points": Math.round(janPoints),
+                    "February Points": Math.round(febPoints),
+                    "March Points": Math.round(marchPoints),
                     "Points": Math.round(points),
                     "Total Price": sum(prices).toFixed(2)
                   }
@@ -102,9 +121,6 @@ function App(props) {
                 people.push(person)
               });
               setCustPoints(people)
-              custPoints.map(customer =>{
-                console.log(customer.customer)
-              })
             })
           }
         });
@@ -134,7 +150,10 @@ function App(props) {
                 <tr>
                   <th>Customer</th>
                   <th>Purchases</th>
-                  <th>Points</th>
+                  <th>January Points</th>
+                  <th>February Points</th>
+                  <th>March Points</th>
+                  <th>Total Points</th>
                   <th>Total Spent</th>
                 </tr>
               </thead>
@@ -144,6 +163,9 @@ function App(props) {
                   <tr key={customer.row_id}>
                     <th {...props} data={customer}>{customer.customer.Name}</th>
                     <th>{customer.customer.Purchases}</th>
+                    <th>{customer.customer["January Points"]}</th>
+                    <th>{customer.customer["February Points"]}</th>
+                    <th>{customer.customer["March Points"]}</th>
                     <th>{customer.customer.Points}</th>
                     <th>${customer.customer["Total Price"]}</th>
                   </tr>
