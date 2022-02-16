@@ -93,7 +93,7 @@ function App(props) {
                     }
                   } else if (price > 100) {
                     let dif = price - 100
-                    points = (dif * 2) + dif
+                    points = (dif * 2) + dif + 50
                     if(month === "1"){
                       janPoints = (dif * 2) + janPoints
                     } else if (month === "2" ) {
