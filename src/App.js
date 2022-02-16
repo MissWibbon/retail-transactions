@@ -10,7 +10,6 @@ function App(props) {
   const [custPoints, setCustPoints] = useState([])
   useEffect(() => {
     const loadPost = async () => {
-      //console.log(conversionsJanFebMarch)
       // Till the data is fetch using API 
       // the Loading page will show.
       setLoading(true);
@@ -83,7 +82,7 @@ function App(props) {
                   let split = element[i]["Total Price"].split(" $ ").pop()
                   let price = Number(split, 10)
                   if (price > 50 && price < 100) {
-                    let dif = 100 - price
+                    let dif = price - 50
                     points = points + dif
                     if(month === 1){
                       janPoints = dif + janPoints
