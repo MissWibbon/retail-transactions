@@ -64,7 +64,6 @@ function App(props) {
               const arr = conversions.filter(function (transact) {
                 return transact.Name === name
               })
-              console.log(arr)
               for (let i = 0; i < arr.length; i++) {
                 if (!unique[conversions[i].Name]) {
                   distinct.push({ name: conversions[i].Name, id: conversions[i].row_id });
@@ -73,7 +72,6 @@ function App(props) {
               }
               shop.push(arr)
               setHistory(shop)
-              console.log(history)
               history.forEach(element => {
                 let points = 0;
                 let janPoints = 0;
@@ -130,7 +128,6 @@ function App(props) {
         //setConversions(response.data);
         
         // Closed the loading page
-        console.log(custPoints)
       setLoading(false);
     }
 
